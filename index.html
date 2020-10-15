@@ -3,9 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="./css/global.css">
+    
+    <!-- Sections CSS -->
+    <link rel="stylesheet" href="./css/welcome.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="./css/footer.css">
+
+    <!-- Components CSS -->
+    <link rel="stylesheet" href="./css/switch.css">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,300;0,400;0,600;1,400;1,600&display=swap"
+        rel="stylesheet">
+        
+    <title>Keypings</title>
+
 </head>
 <body>
-    
+
+    <div id="root">
+        <!-- Welcome screen -->
+        <section id="welcome">
+            <div class="container">
+                <header id="header">
+                    <h1>Keypings</h1>
+                    <a href="#main">Press any key to start</a>
+                    <div class="keys">
+                        <div>
+                            <span>Q</span>
+                        </div>
+                        <div>
+                            <span>W</span>
+                        </div>
+                        <div>
+                            <span>E</span>
+                        </div>
+                        <div>
+                            <span>R</span>
+                        </div>
+                        <div>
+                            <span>T</span>
+                        </div>
+                        <div>
+                            <span>Y</span>
+                        </div>
+                    </div>
+                </header>
+                <div class="switch-button">
+                    <label class="switch">
+                        <input id="dark-switch" type="checkbox">
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Typing section -->
+        <section id="main">
+            <div class="container">
+                <div class="typing-container">
+                      
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <p>Created by Luis Eduardo Mochenski Floriano</p>
+            </div>
+        </footer>
+    </div>
+
+    <script src="./js/utils/keyToStart.js"></script>
+    <script src="./js/index.js"></script>
+    <script src="./js/utils/dark.js"></script>
 </body>
 </html>

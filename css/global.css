@@ -1,0 +1,41 @@
+* {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	list-style: none;
+}
+
+body {
+	background-color: #ddc850;
+}
+
+body,
+input,
+select,
+textarea {
+	font-family: "Source Code Pro", monospace, sans-serif;
+	color: #2e2e2e;
+}
+
+a:link {
+	text-decoration: inherit;
+	color: inherit;
+	cursor: auto;
+}
+
+a:visited {
+	text-decoration: inherit;
+	color: inherit;
+	cursor: auto;
+}
+
+.dark-mode {
+	background-color: #2e2e2e;
+	color: #ddc850;
+}
+
+.container {
+	position: relative;
+	margin: 0 auto;
+	width: 80%;
+}
