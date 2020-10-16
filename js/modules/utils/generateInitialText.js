@@ -1,8 +1,9 @@
+
+
+
 export default function generateInitialText() {
     
-    // const text = "What, is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book it has?"
-
-    const text = "eh bla"
+    const text = "What, is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industrys standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book it has?"
 
     let tokens = text.match(/[^ ]+/g)
 
@@ -34,6 +35,8 @@ export default function generateInitialText() {
     line.lastChild.removeChild(line.lastChild.lastChild)
 
     let typingContainer = document.querySelector(".typing-container");
+
+    typingContainer.innerHTML = ''
 
     typingContainer.appendChild(line)
 

@@ -1,27 +1,31 @@
-import keyToStart from './utils/keyToStart.js';
-import generateInitialText from './utils/generateInitialText.js';
-import startTyping from './typing/typing.js';
-import timer from './utils/timer.js';
+import keyToStart from './modules/utils/keyToStart.js';
+import generateInitialText from './modules/utils/generateInitialText.js';
+import {startTyping, endTyping} from './modules/typing/typing.js';
 
-function main() {
+export default function main() {
    
-    const time = new timer(document.getElementById('timer'));
-
-
     generateInitialText();
-    
-    keyToStart();
 
     const handlePositioning = (e) => {
         let main = document.getElementById('main');
         if (window.scrollY >= main.offsetTop -100) {
-            time.start(0);
-            startTyping();
+            startTyping()
             window.removeEventListener('scroll', handlePositioning);
         }
     } 
     window.addEventListener('scroll', handlePositioning);
 
+    function restart() {
+        generateInitialText();
+        startTyping()
+    }
+
+    let resetButton = document.getElementById('generate')
+    resetButton.addEventListener('click', restart)
+
 }
 
+
+
+keyToStart();
 main();

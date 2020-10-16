@@ -1,4 +1,6 @@
-function startTyping() {
+export function startTyping() {
+    const time = new Timer(document.getElementById('timer'));
+
     let tokens = document.querySelectorAll(".token");
 
     let cursor = {}
@@ -13,6 +15,32 @@ function startTyping() {
         // initialize display
         cursor.token.classList.add("active")
         cursor.tokenUnit.classList.add("active")
+    }
+
+    function updateFails() {
+        let fails = document.getElementById('fails');
+
+        let failDivs = document.querySelectorAll('.fail');
+
+        let count = failDivs.length;
+
+        failDivs.forEach(div => {
+            if (div.classList.contains('warn')) {
+                count--
+            }
+        })
+
+        fails.innerHTML = count + ' fails';
+
+    }
+
+    function updateWpm() {
+        let wpm = document.getElementById('wpm');
+        let count = document.querySelectorAll('fail').length;
+
+        
+        wpm.innerHTML = Math.floor((cursor.tokenPtr) / (time.totalSeconds / 60)) + " wpm"
+
     }
 
     function updateCursor(cursor, key) {
@@ -50,7 +78,11 @@ function startTyping() {
             cursor.tokenUnitPtr++;
         }
 
+        updateFails();
+        updateWpm();
+
         if (endTyping(cursor)) {
+            time.stop()
             return false   
         } else {
 
@@ -96,8 +128,6 @@ function startTyping() {
 
         let offset = tpContainer.scrollTop > (cursor.token.offsetTop - tpContainer.offsetTop - 100);
 
-        console.log(tpContainer.scrollTop ,cursor.token.offsetTop)
-
         let scrolling = false;
 
         if (offset && !scrolling) {
@@ -119,10 +149,37 @@ function startTyping() {
             window.removeEventListener("keydown", handle)}
     }
 
+    window.addEventListener("keydown", (keyboard) => {
+        handle(keyboard)
+        time.start()
+    }, {once: true})
+
     window.addEventListener("keydown", handle)
+
+    let reseted = false
+    function reset() {
+
+        let fails = document.getElementById('fails');
+        let timer = document.getElementById('timer');
+        let wpm = document.getElementById('wpm');
+
+        fails.innerHTML = '0 fails'
+        timer.innerHTML = '0:00'
+        wpm.innerHTML = '0 wpm'
+
+
+        window.removeEventListener("keydown", handle)
+        cursor = {}
+        reseted = true
+        time.stop()
+    }
+
+    let resetButton = document.getElementById('generate')
+    resetButton.addEventListener('click', reset, { once: true })
+    return reseted;
 }
 
-function endTyping(cursor) {
+export function endTyping(cursor) {
     let tokens = document.querySelectorAll(".token");
     let max = tokens.length;
     
@@ -131,5 +188,3 @@ function endTyping(cursor) {
     }
     return false;
 }
-
-export default startTyping

@@ -71,10 +71,10 @@
 
                 </div>
                 <div class="stats">
-                    <div class="words-per-minute outter-box">0 wpm</div>
+                    <div id="wpm" class="outter-box">0 wpm</div>
                     <div id="timer" class="outter-box"> 0:00 </div>
-                    <div class="errors outter-box error">0 fails</div>
-                    <div class="generate outter-box"> Generate Text </div>
+                    <div id="fails" class="outter-box error">0 fails</div>
+                    <div id="generate" class="outter-box"> New Text </div>
                 </div>
             </div>
         </section>
@@ -89,7 +89,8 @@
         </footer>
     </div>
 
-    <script src="./js/utils/dark.js"></script>
+    <script src="./js/modules/utils/dark.js"></script>
+    <script src="./js/modules/utils/timer.js"></script>
     <script type="module" src="./js/index.js"></script>
 </body>
 
