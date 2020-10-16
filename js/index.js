@@ -2,9 +2,9 @@ import keyToStart from './utils/keyToStart.js';
 
 function generateInitialText() {
     
-    const text = "What, is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book it has?"
+    // const text = "What, is Lorem Ipsum Lorem Ipsum is simply dummy text of the printing and typesetting industry Lorem Ipsum has been the industry's standard dummy text ever since the 1500s when an unknown printer took a galley of type and scrambled it to make a type specimen book it has?"
 
-    // const text = "eh bla"
+    const text = "eh bla"
 
     let tokens = text.match(/[^ ]+/g)
 
@@ -63,7 +63,7 @@ function startTyping() {
 
         cursor.tokenUnit.classList.remove("active");
         let el = cursor.tokenUnit.innerHTML;
-        // console.log(cursor.tokenPtr, cursor.tokenUnitPtr)
+
         if (key == "Backspace") {
             if (cursor.tokenPtr >= 0 && cursor.tokenUnitPtr > 0) {
                 cursor.tokenUnitPtr--;
@@ -81,7 +81,6 @@ function startTyping() {
             cursor.tokenUnit.classList.remove("done");
             if (cursor.tokenUnit.classList.contains("fail")) {
                 cursor.tokenUnit.classList.add("warn")
-                console.log('warn')
             }
             cursor.tokenUnit.classList.remove("fail");
 
@@ -97,20 +96,22 @@ function startTyping() {
 
         if (endTyping(cursor)) {
             return false   
-        }
+        } else {
 
-        if (cursor.token.childElementCount - 1 === cursor.tokenUnitPtr - 1) {
-            cursor.tokenPtr++;
-            cursor.tokenUnitPtr = 0;
-        
-            cursor.token.classList.remove("active");
-            cursor.token = tokens[cursor.tokenPtr];
-            cursor.token.classList.add("active")
+            
+            if (cursor.token.childElementCount - 1 === cursor.tokenUnitPtr - 1) {
+                cursor.tokenPtr++;
+                cursor.tokenUnitPtr = 0;
+                
+                cursor.token.classList.remove("active");
+                cursor.token = tokens[cursor.tokenPtr];
+                cursor.token.classList.add("active")
+            }
+            
+            
+            cursor.tokenUnit = tokens[cursor.tokenPtr].children[cursor.tokenUnitPtr];
+            cursor.tokenUnit.classList.add("active")
         }
-
-        
-        cursor.tokenUnit = tokens[cursor.tokenPtr].children[cursor.tokenUnitPtr];
-        cursor.tokenUnit.classList.add("active")
 
         return true;
     }
@@ -122,8 +123,7 @@ function startTyping() {
      *  > needs a handler 
      *  > needs : this.removeEventListener("yourevent", arguments.callee)
      */
-
-    async function handleScrollOffset(tpContainer, cursor) {
+    function handleScrollOffset(tpContainer, cursor) {
 
         let offset = tpContainer.clientHeight + tpContainer.scrollTop - cursor.token.offsetTop - 100;
 
@@ -131,12 +131,12 @@ function startTyping() {
 
         if ((offset < 0) && !scrolling) {
             scrolling = true;
-            await tpContainer.scrollTo({ top: cursor.token.offsetTop + 150, behavior: 'smooth', block: 'center' });
+            tpContainer.scrollTo({ top: cursor.token.offsetTop + 150, behavior: 'smooth', block: 'center' });
             scrolling = false;
         }
     }
 
-    async function handleScrollOffsetBack(tpContainer, cursor) {
+    function handleScrollOffsetBack(tpContainer, cursor) {
 
         let offset = tpContainer.scrollTop > (cursor.token.offsetTop - tpContainer.offsetTop - 100);
 
@@ -146,7 +146,7 @@ function startTyping() {
 
         if (offset && !scrolling) {
             scrolling = true;
-            await tpContainer.scrollTo({ top: cursor.token.offsetTop - 150, behavior: 'smooth', block: 'center' });
+            tpContainer.scrollTo({ top: cursor.token.offsetTop - 150, behavior: 'smooth', block: 'center' });
             scrolling = false;
         }
     }
@@ -160,7 +160,7 @@ function startTyping() {
             keyboard.preventDefault();
         }
         if (!updateCursor(cursor, keyboard.key)) {
-            this.removeEventListener("keydown", arguments.callee)}
+            window.removeEventListener("keydown", handle)}
     }
 
     window.addEventListener("keydown", handle)
