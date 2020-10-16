@@ -21,6 +21,8 @@
 
 	border-bottom: 1px solid #fff;
 	border-left: 1px solid #fff;
+
+	overflow: hidden;
 }
 
 .dark-mode .typing-container {
@@ -69,32 +71,34 @@
 	text-decoration: underline;
 }
 
-.typing-container .line .token .token-unit.done {
+.done {
 	background-color: #05a30567;
 	color: #023f02;
 }
 
-.typing-container .line .token .token-unit.fail {
+.fail {
 	background-color: #a3050567;
 	color: #3f0202;
 }
 
-.typing-container .line .token .token-unit.warn {
+.warn.done,
+.warn.fail {
 	background-color: #83810a67;
 	color: #3b3a02;
 }
 
-.dark-mode .typing-container .line .token .token-unit.done {
+.dark-mode .done {
 	background-color: #00ff0067;
 	color: #07ce07;
 }
 
-.dark-mode .typing-container .line .token .token-unit.fail {
+.dark-mode .fail {
 	background-color: #dd0a0a67;
 	color: #d40b0b;
 }
 
-.dark-mode .typing-container .line .token .token-unit.warn {
+.dark-mode .warn.done,
+.dark-mode .warn.fail {
 	background-color: #d3d00c67;
 	color: #fffb00;
 }

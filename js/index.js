@@ -1,3 +1,4 @@
+import keyToStart from './utils/keyToStart.js';
 
 function generateInitialText() {
     
@@ -37,6 +38,8 @@ function generateInitialText() {
     let typingContainer = document.querySelector(".typing-container");
 
     typingContainer.appendChild(line)
+
+    return true;
 }
 
 function startTyping() {
@@ -66,7 +69,9 @@ function startTyping() {
                 cursor.tokenUnitPtr--;
             } else if (cursor.tokenPtr > 0 && cursor.tokenUnitPtr == 0) {
                 cursor.tokenPtr--;
+                cursor.token.classList.remove('active')
                 cursor.token = tokens[cursor.tokenPtr];
+                cursor.token.classList.add('active')
                 cursor.tokenUnitPtr = cursor.token.childElementCount - 1
             }
             
@@ -74,7 +79,12 @@ function startTyping() {
             cursor.tokenUnit = tokens[cursor.tokenPtr].children[cursor.tokenUnitPtr];
 
             cursor.tokenUnit.classList.remove("done");
+            if (cursor.tokenUnit.classList.contains("fail")) {
+                cursor.tokenUnit.classList.add("warn")
+                console.log('warn')
+            }
             cursor.tokenUnit.classList.remove("fail");
+
 
 
         } else if (el == key || (key == " " && el == "&nbsp;")) {
@@ -112,15 +122,51 @@ function startTyping() {
      *  > needs a handler 
      *  > needs : this.removeEventListener("yourevent", arguments.callee)
      */
+
+    async function handleScrollOffset(tpContainer, cursor) {
+
+        let offset = tpContainer.clientHeight + tpContainer.scrollTop - cursor.token.offsetTop - 100;
+
+        let scrolling = false;
+
+        if ((offset < 0) && !scrolling) {
+            scrolling = true;
+            await tpContainer.scrollTo({ top: cursor.token.offsetTop + 150, behavior: 'smooth', block: 'center' });
+            scrolling = false;
+        }
+    }
+
+    async function handleScrollOffsetBack(tpContainer, cursor) {
+
+        let offset = tpContainer.scrollTop > (cursor.token.offsetTop - tpContainer.offsetTop - 100);
+
+        console.log(tpContainer.scrollTop ,cursor.token.offsetTop)
+
+        let scrolling = false;
+
+        if (offset && !scrolling) {
+            scrolling = true;
+            await tpContainer.scrollTo({ top: cursor.token.offsetTop - 150, behavior: 'smooth', block: 'center' });
+            scrolling = false;
+        }
+    }
+    
     const handle = function handleTyping(keyboard) {
-        if(!updateCursor(cursor, keyboard.key)){
+        handleScrollOffset(document.querySelector(".typing-container"), cursor)
+        handleScrollOffsetBack(document.querySelector(".typing-container"), cursor)
+
+        if (keyboard.key === " ") {
+            
+            keyboard.preventDefault();
+        }
+        if (!updateCursor(cursor, keyboard.key)) {
             this.removeEventListener("keydown", arguments.callee)}
     }
 
     window.addEventListener("keydown", handle)
+}
 
-
-    function endTyping(cursor) {
+function endTyping(cursor) {
         let tokens = document.querySelectorAll(".token");
         let max = tokens.length;
         
@@ -129,18 +175,24 @@ function startTyping() {
         }
         return false;
     }
-    
-}
 
 
 function start() {
     generateInitialText();
-    startTyping();
+    keyToStart();
 
+    
+    const handlePositioning = (e) => {
+        let main = document.getElementById('main');
+        if (window.scrollY >= main.offsetTop -100) {
+            startTyping();
+            window.removeEventListener('scroll', handlePositioning);
+        }
+    } 
+
+    window.addEventListener('scroll', handlePositioning);     
 
     return
-    
-
 }
 
 start();
