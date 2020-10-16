@@ -6,10 +6,26 @@
 	max-width: 100%;
 }
 
-.typing-container {
-	margin-top: 5vh;
+.stats {
+	display: flex;
 
-	height: 50vh;
+	flex: 1;
+	flex-direction: row;
+
+	margin: 0 auto;
+	width: 70%;
+
+	justify-content: space-between;
+	align-content: center;
+
+	margin-top: 3vh;
+}
+
+.stats div {
+	margin: auto 0;
+}
+
+.inner-box {
 	padding: 5vh;
 
 	border-radius: 5vh;
@@ -21,15 +37,76 @@
 
 	border-bottom: 1px solid #fff;
 	border-left: 1px solid #fff;
+}
+
+.outter-box {
+	padding: 2vh;
+
+	font-weight: 600;
+	font-size: 4ex;
+
+	text-align: center;
+	text-shadow: 0 1px 0 #ffffff;
+
+	border-radius: 5vh;
+	background-color: #ccb73d;
+
+	-webkit-box-shadow: -7px 7px 0px -2px #7c6f26;
+	-moz-box-shadow: -7px 7px 0px -2px #7c6f26;
+	box-shadow: -7px 7px 0px -2px #7c6f26;
+
+	border-top: 1px solid #fff;
+	border-right: 1px solid #fff;
+
+	margin-left: 10px;
+}
+
+.outter-box.error {
+	color: #b90808;
+}
+
+.outter-box:active {
+	transform: translate(-4px, 4px);
+
+	-webkit-box-shadow: -2px 2px 0px 0px #7c6f26;
+	-moz-box-shadow: -2px 2px 0px 0px #7c6f26;
+	box-shadow: -2px 2px 0px 0px #7c6f26;
+}
+
+.dark-mode .outter-box:active {
+	transform: translate(-4px, 4px);
+
+	-webkit-box-shadow: -2px 2px 0px 0px#00000065;
+	-moz-box-shadow: -2px 2px 0px 0px#00000065;
+	box-shadow: -2px 2px 0px 0px#00000065;
+}
+
+.dark-mode .outter-box {
+	text-shadow: 0 1px 0 #151515;
+
+	background-color: #2e2e2e;
+
+	-webkit-box-shadow: -7px 7px 0px -2px #00000065;
+	-moz-box-shadow: -7px 7px 0px -2px #00000065;
+	box-shadow: -7px 7px 0px -2px #00000065;
+
+	border-top: 1px solid #151515;
+	border-right: 1px solid #151515;
+}
+
+.typing-container {
+	margin-top: 5vh;
+
+	height: 50vh;
 
 	overflow: hidden;
 }
 
-.dark-mode .typing-container {
+.dark-mode .inner-box {
 	background-color: #2e2e2e;
 
-	border-bottom: 1px solid #000;
-	border-left: 1px solid #000;
+	border-bottom: 1px solid #151515;
+	border-left: 1px solid #151515;
 }
 
 .typing-container .line {
@@ -77,7 +154,7 @@
 }
 
 .fail {
-	background-color: #a3050567;
+	background-color: #642b2b67;
 	color: #3f0202;
 }
 

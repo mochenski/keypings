@@ -12,9 +12,15 @@ body {
 body,
 input,
 select,
-textarea {
+textarea,
+button {
 	font-family: "Source Code Pro", monospace, sans-serif;
 	color: #2e2e2e;
+}
+
+button:focus {
+	text-decoration: none;
+	outline: none;
 }
 
 a:link {
@@ -30,6 +36,11 @@ a:visited {
 }
 
 .dark-mode {
+	background-color: #2e2e2e;
+	color: #ddc850;
+}
+
+.dark-mode button {
 	background-color: #2e2e2e;
 	color: #ddc850;
 }
